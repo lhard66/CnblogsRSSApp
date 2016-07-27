@@ -1,0 +1,151 @@
+﻿<Page
+    x:Class="CnblogsRSSApp.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"    
+    xmlns:local="using:CnblogsRSSApp"
+    xmlns:common="using:CnblogsRSSApp.Common"
+    xmlns:viewModels="using:CnblogsRSSApp.ViewModels"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    DataContext="{Binding vmMainPage,RelativeSource={RelativeSource Mode=Self}}"
+    d:DataContext="{d:DesignInstance Type=viewModels:MainPageViewModel,IsDesignTimeCreatable=True}">
+    <Page.Resources>
+        <Style x:Key="title_lv" TargetType="ListViewItem">
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="BorderBrush" Value="WhiteSmoke"/>
+            <Setter Property="BorderThickness" Value="0,0,0,3"/>
+            <Setter Property="Margin" Value="1"/>
+            <Setter Property="Padding" Value="0,5,25,5"/>
+        </Style>
+        <Style x:Key="title_txtBlock" TargetType="TextBlock">
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+        </Style>
+        <Style x:Key="txtStyle" TargetType="TextBlock">
+            <Setter Property="Opacity" Value="0.8"/>
+            <Setter Property="FontSize" Value="12"/>
+        </Style>
+        <Style x:Key="txtAuthorStyle" TargetType="TextBlock" BasedOn="{StaticResource txtStyle}">
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        </Style>
+        
+        <common:DateTimeConverter x:Key="datetimeConvert"/>
+    </Page.Resources>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <ProgressRing IsActive="{Binding LoadingStatus}" Width="60" Height="60"/>
+        <Pivot x:Name="rootPivot">
+            <PivotItem Header="首页">
+                <ListView ItemContainerStyle="{StaticResource title_lv}" ItemsSource="{Binding VmCnblogsHome[0].ArticleList}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Button Command="{Binding GoToContentCommand}" CommandParameter="{Binding Link}">
+                                <Button.Template>
+                                    <ControlTemplate>
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="2*"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Text="{Binding Title}" Style="{StaticResource title_txtBlock}" Grid.ColumnSpan="2"/>
+                                            <TextBlock Text="{Binding UpdatedTime,Converter={StaticResource datetimeConvert}}" Style="{StaticResource txtStyle}" Grid.Row="1"/>
+                                            <TextBlock Text="{Binding Author.Name}" Style="{StaticResource txtAuthorStyle}" Grid.Row="1" Grid.Column="1"/>
+                                        </Grid>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </PivotItem>
+            <PivotItem Header="精华">
+                <ListView ItemContainerStyle="{StaticResource title_lv}" ItemsSource="{Binding VmCnblogsEssence[0].ArticleList}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Button Command="{Binding GoToContentCommand}" CommandParameter="{Binding Link}">
+                                <Button.Template>
+                                    <ControlTemplate>
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="2*"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Text="{Binding Title}" Style="{StaticResource title_txtBlock}" Grid.ColumnSpan="2"/>
+                                            <TextBlock Text="{Binding UpdatedTime,Converter={StaticResource datetimeConvert}}" Style="{StaticResource txtStyle}" Grid.Row="1"/>
+                                            <TextBlock Text="{Binding Author.Name}" Style="{StaticResource txtAuthorStyle}" Grid.Row="1" Grid.Column="1"/>
+                                        </Grid>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </PivotItem>
+            <PivotItem Header="候选" >
+                <ListView ItemContainerStyle="{StaticResource title_lv}" ItemsSource="{Binding VmCnblogsCandidate[0].ArticleList}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Button Command="{Binding GoToContentCommand}" CommandParameter="{Binding Link}">
+                                <Button.Template>
+                                    <ControlTemplate>
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="2*"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Text="{Binding Title}" Style="{StaticResource title_txtBlock}" Grid.ColumnSpan="2"/>
+                                            <TextBlock Text="{Binding UpdatedTime,Converter={StaticResource datetimeConvert}}" Style="{StaticResource txtStyle}" Grid.Row="1"/>
+                                            <TextBlock Text="{Binding Author.Name}" Style="{StaticResource txtAuthorStyle}" Grid.Row="1" Grid.Column="1"/>
+                                        </Grid>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </PivotItem>
+            <PivotItem Header="新闻">
+                <ListView ItemContainerStyle="{StaticResource title_lv}" ItemsSource="{Binding VmCnblogsNews[0].ArticleList}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Button Command="{Binding GoToContentCommand}" CommandParameter="{Binding Link}">
+                                <Button.Template>
+                                    <ControlTemplate>
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="2*"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Text="{Binding Title}" Style="{StaticResource title_txtBlock}" Grid.ColumnSpan="2"/>
+                                            <TextBlock Text="{Binding UpdatedTime,Converter={StaticResource datetimeConvert}}" Style="{StaticResource txtAuthorStyle}" Grid.Row="1" Grid.Column="1"/>
+                                        </Grid>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </PivotItem>
+        </Pivot>
+
+    </Grid>
+</Page>

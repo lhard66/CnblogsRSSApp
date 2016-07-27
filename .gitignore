@@ -1,0 +1,6 @@
+/CnblogsRSSApp/bin/*
+/CnblogsRSSApp/obj/*
+/CnblogsRSSApp/CnblogsRSSApp.csproj.user
+/CnblogsRSSApp/UWPBook.csproj.user
+/CnblogsRSSApp.suo
+/.vs/*
