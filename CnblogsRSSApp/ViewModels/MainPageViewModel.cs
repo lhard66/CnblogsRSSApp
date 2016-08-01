@@ -50,8 +50,8 @@ namespace CnblogsRSSApp.ViewModels
             SyndicationFeed feedCandidate = await LoadedFeed(new Uri("http://feed.cnblogs.com/blog/candidate/rss"));
             LoadedModel(feedCandidate, VmCnblogsCandidate);
 
-            SyndicationFeed feedNews = await LoadedFeed(new Uri("http://feed.cnblogs.com/news/rss"));
-            LoadedNewsModel(feedNews, VmCnblogsNews);
+            //SyndicationFeed feedNews = await LoadedFeed(new Uri("http://feed.cnblogs.com/news/rss"));
+            //LoadedNewsModel(feedNews, VmCnblogsNews);
         }
 
         private void LoadedModel(SyndicationFeed feed, ObservableCollection<CnblogsModel> vmCnblogsObj)

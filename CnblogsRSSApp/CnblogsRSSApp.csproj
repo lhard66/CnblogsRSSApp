@@ -100,6 +100,7 @@
     </Compile>
     <Compile Include="Common\Command.cs" />
     <Compile Include="Common\DateTimeConverter.cs" />
+    <Compile Include="Common\NetUtility.cs" />
     <Compile Include="Common\NotifyPropertyChange.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>

@@ -35,21 +35,31 @@ namespace CnblogsRSSApp
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            ShowArticle(e.Parameter as Uri);
+            string strUrl = e.Parameter.ToString();
+            LoadedArticle(strUrl);
+
+        }
+        private async void LoadedArticle(string strUrl)
+        {
+            strUrl = "http://192.168.0.106:8088/cnblogs/getarticle?strurl=" + strUrl;
+            HttpClient httpClient = new HttpClient();
+            HttpResponseMessage response = await httpClient.GetAsync(new Uri(strUrl));
+            string strArticle = await response.Content.ReadAsStringAsync();
+            webArticle.NavigateToString(strArticle);
         }
         //TODO: 以下代码不符合mvvm设计思想，但因为webview没有html字符串绑定属性，还有采用从后端返回json后前端操作，故采用此方式实现。
-        private async void ShowArticle(Uri uri)
-        {
-            vmArticlePage = new ViewModels.ArticlePageViewModel(uri);
-            webArticle.NavigateToString(await LoadedArticle());
-        }
-        public async Task<string> LoadedArticle()
-        {
-            HttpClient client = new HttpClient();
-            string articleContent = await client.GetStringAsync(vmArticlePage.articleModel.Link.ToString());
-            Regex regex = new Regex(@"<div id=""post_detail"">[\s\S]*<a href=""#"" onclick=""AddToWz\(\d+\);return false;"">收藏</a>");
-            Match match = regex.Match(articleContent);
-            return match.Value + "</div>";
-        }
+        //private async void ShowArticle(Uri uri)
+        //{
+        //    vmArticlePage = new ViewModels.ArticlePageViewModel(uri);
+        //    webArticle.NavigateToString(await LoadedArticle());
+        //}
+        //public async Task<string> LoadedArticle()
+        //{
+        //    HttpClient client = new HttpClient();
+        //    string articleContent = await client.GetStringAsync(vmArticlePage.articleModel.Link.ToString());
+        //    Regex regex = new Regex(@"<div id=""post_detail"">[\s\S]*<a href=""#"" onclick=""AddToWz\(\d+\);return false;"">收藏</a>");
+        //    Match match = regex.Match(articleContent);
+        //    return match.Value + "</div>";
+        //}
     }
 }
